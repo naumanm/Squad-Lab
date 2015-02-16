@@ -7,14 +7,21 @@
 <body>
 
 <%= @squad['id'] %>
+<p>
+  <h3>Edit Squad</h3>
+  <form action="/squads/<%= @squad['id'] %>" method="POST">
+    <input type="hidden" name="_method" value="put">
+    Name: <input type="text" name="name" value="<%= @squad['name'] %>">
+    Mascot: <input type="text" name="mascot" value="<%= @squad['mascot'] %>">
+    <input type="submit" value="Update squad">
+  </form>
+</p>
 
-<h3>Edit Squad</h3>
-<form action="/squads/<%= @squad['id'] %>" method="POST">
-  <input type="hidden" name="_method" value="put">
-  Name: <input type="text" name="name" value="<%= @squad['name'] %>">
-  Mascot: <input type="text" name="mascot" value="<%= @squad['mascot'] %>">
-  <input type="submit" value="Update squad">
-</form>
-
+<p>
+  <form action="/squads/<%= @squad['id'] %>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete squad">
+  </form>
+</p>
 </body>
 </html>

@@ -8,12 +8,14 @@
 
   <h4><%= @id %></h4>
   <h4><%= @squadmembers %></h4>
+  <h4><%= @squad_name %></h4>
 
-  <form action="/squads" method="post">
-    first: <input type="text" name="first">
-    last: <input type="text" name="last">
-    <input type="submit" value="create user">
-  </form>
+  <% @squadmembers.each do |student| %>
+    <a href="/squads/<%= student['squadid'] %>/students/<%= student['id'] %>/edit ">
+      <h4><%= student['name'] %> <%= student['age'] %> <%= student['spiritanimal'] %></h4>
+    </a>
+  <% end %>  
+
 
 </body>
 </html>

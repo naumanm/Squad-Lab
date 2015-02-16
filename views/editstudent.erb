@@ -7,13 +7,20 @@
 <body>
 
 
-<p><%= @student['id'] %></p>
+<p>student id: <%= @student_id %></p>
+<p>squad id: <%= @squad_id %></p>
 
-<form action="/students/<%= @student['id'] %>" method="post">
+<form action="/squads/<%= @squad_id %>/students/<%= @student_id %>" method="post">
+  <input type="hidden" name="_method" value="PUT">
   Name: <input type="text" name="name" value="<%= @student['name'] %>">
   Age: <input type="text" name="name" value="<%= @student['age'] %>">
   Spirit animal: <input type="text" name="mascot" value="<%= @student['spiritanimal'] %>">
-  <input type="submit" value="edit student">
+  <input type="submit" value="Edit student">
+</form>
+
+<form action="/squads/<%= @squad_id %>/students/<%= @student_id %>" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete student">
 </form>
 
 </body>

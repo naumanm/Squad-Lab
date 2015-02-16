@@ -6,9 +6,9 @@
 </head>
 <body>
   
-<h2>Team: "<%= @squad['name'] %>" Mascot: "<%= @squad['mascot'] %>"</h2>
+<h2>Team: <%= @squad['name'] %> Mascot: <%= @squad['mascot'] %> <%= @squad['id'] %></h2>
 
-<form action="/squads/1/squadmembers" method="post">
+<form action="/squads/<%= @squad['id'] %>/squadmembers" method="post">
   <input type="submit" value="show students">
 </form>
 

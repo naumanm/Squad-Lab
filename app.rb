@@ -78,6 +78,7 @@ get '/squads/:id/squadmembers' do
     squadmembers << squad
     end
   end
+
   @squadmembers = squadmembers 
   @id = id
   erb :squadmembers
@@ -108,10 +109,10 @@ end
 #EDITSTUDENT
 # /squads/:squad_id/students/:student_id/edit - this route takes the user to a page that shows them a form to edit a student's information
 get '/squads/:id/students/:student_id/edit' do
-  id = params[:id].to_i
+  squad_id = params[:id].to_i
   student_id = params[:student_id].to_i
-  student = @conn.exec("SELECT * FROM squads JOIN students ON squads.id = students.squadid where squads.id = $1 AND students.id = 2", [id])
-  @id = id
+  student = @conn.exec("SELECT * FROM squads JOIN students ON squads.id = students.squadid where squads.id = $1 AND students.id = $2", [squad_id, student_id])
+  @squad_id = squad_id
   @student_id = student_id
   @student = student[0]
   erb :editstudent
@@ -145,10 +146,9 @@ end
 
 #UPDATESQUAD
 # /squads/:squad_id - this route should be used for editing an existing squad
-put '/squads:squad_id' do
+put '/squads/:squad_id' do
   # not getting the ID from the calling page params[:squad_id] is always 0
-  #id = params[:squad_id].to_i
-  id = 3
+  id = params[:squad_id].to_i
   name = params[:name]  
   mascot = params[:mascot]
   @conn.exec("UPDATE squads SET name = $1, mascot = $2 WHERE id = $3", [params[:name], params[:mascot], id])
@@ -174,7 +174,7 @@ end
 # /squads/:squad_id - this route should be used for deleting an existing squad
 delete '/squads/:squad_id' do
   squad_id = params[:squad_id].to_i
-  @conn.exec("DELETE from squads WHERE id = $1", [squad_id])
+  @conn.exec("DELETE FROM squads WHERE id = $1", [squad_id])
   redirect '/squads'
 end
 
@@ -182,6 +182,6 @@ end
 delete '/squads/:squad_id/students/:student_id' do
   squad_id = params[:squad_id].to_i
   student_id = params[:student_id].to_i
-  @conn.exec("DELETE from students WHERE student_id = $1 AND squad_id = $2", [student_id, squad_id])
+  @conn.exec("DELETE FROM students WHERE id = $1 AND squadid = $2", [student_id, squad_id])
   redirect '/squads'
 end
