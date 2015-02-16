@@ -1,0 +1,19 @@
+
+
+CREATE TABLE squads (id SERIAL PRIMARY KEY, name VARCHAR(50), mascot VARCHAR(50)); 
+
+CREATE TABLE students (id SERIAL PRIMARY KEY, squadID iINTEGER REFERENCES squads(id), name VARCHAR(50), age INTEGER, spiritanimal VARCHAR(50));
+
+SELECT * FROM squads JOIN students ON squads.id = students.squadid;
+
+INSERT INTO squads (name, mascot) VALUES ('Team A', 'Lion');
+
+INSERT INTO students (squadid, name, age, spiritanimal) VALUES (1, 'marie', 41, 'butterfly');
+
+UPDATE squads SET name = 'Team C' WHERE id = 3;
+
+SELECT * FROM squads JOIN students ON squads.id = students.squadid where squads.id = 1;
+
+SELECT * FROM squads JOIN students ON squads.id = students.squadid where squads.id = 1 AND students.id = 3;
+
+INSERT INTO squads (name, mascot) VALUES ('test1', 'dog');

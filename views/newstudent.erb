@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Student</title>
+</head>
+<body>
+
+<h3>Add a new Student for Squad <%= @squad['name'] %></h3>
+<form action="/squads/<%= @id %>/students" method="post">
+  Name: <input type="text" name="newname">
+  Age: <input type="text" name="newage">
+  Spirit Animal: <input type="text" name="newspiritanimal">
+  <input type="submit" value="create student">
+</form>
+
+</body>
+</html>

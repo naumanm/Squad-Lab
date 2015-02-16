@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>/squads/:id/students/:student_id/edit</title>
+</head>
+<body>
+
+
+<p><%= @student['id'] %></p>
+
+<form action="/students/<%= @student['id'] %>" method="post">
+  Name: <input type="text" name="name" value="<%= @student['name'] %>">
+  Age: <input type="text" name="name" value="<%= @student['age'] %>">
+  Spirit animal: <input type="text" name="mascot" value="<%= @student['spiritanimal'] %>">
+  <input type="submit" value="edit student">
+</form>
+
+</body>
+</html>

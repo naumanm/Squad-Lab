@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>showsquad.erb</title>
+</head>
+<body>
+  
+<h2>Team: "<%= @squad['name'] %>" Mascot: "<%= @squad['mascot'] %>"</h2>
+
+<form action="/squads/1/squadmembers" method="post">
+  <input type="submit" value="show students">
+</form>
+
+
+</body>
+</html>
