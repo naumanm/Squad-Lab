@@ -1,4 +1,4 @@
-# mike_nauman
+# michael_nauman
 
 require 'sinatra'
 require 'sinatra/reloader'
@@ -59,6 +59,22 @@ get '/squads/:id' do
   erb :showsquad
 end
 
+# SQUADMEMBERS
+# /squads/:squad_id/students - this route takes the user to a page that shows all of the students for an individual squad
+get '/squads/:squad_id/students' do
+  squad_id = params[:squad_id].to_i
+  squadmembers = []
+  @conn.exec("SELECT * FROM squads JOIN students ON squads.id = students.squadid where squads.id = $1", [squad_id]) do |result|
+    result.each do |squad|
+      squadmembers << squad
+    end  
+  end
+  binding.pry
+  @squadmembers = squadmembers 
+  @squad_id = squad_id
+  erb :squadmembers
+end
+
 # EDITSQUAD
 # /squads/:squad_id/edit - this route takes the user to a page with a form that allows them to edit an existing squad
 get '/squads/:id/edit' do
@@ -66,22 +82,6 @@ get '/squads/:id/edit' do
   squad = @conn.exec("SELECT * FROM squads WHERE id = $1", [id])
   @squad = squad[0]
   erb :editsquad
-end
-
-# SQUADMEMBERS
-# /squads/:squad_id/students - this route takes the user to a page that shows all of the students for an individual squad
-get '/squads/:id/squadmembers' do
-  id = params[:id].to_i
-  squadmembers = []
-  @conn.exec("SELECT * FROM squads JOIN students ON squads.id = students.squadid where squads.id = $1", [id]) do |result|
-    result.each do |squad|
-    squadmembers << squad
-    end
-  end
-
-  @squadmembers = squadmembers 
-  @id = id
-  erb :squadmembers
 end
 
 #SHOWSTUDENT
@@ -135,10 +135,8 @@ post '/squads/:squad_id/students' do
   name = params[:newname]
   age = params[:newage].to_i
   spiritanimal = params[:newspiritanimal]
-  redirect_path = '/squads' << squad_id << ''
   @conn.exec("INSERT INTO students (squadid, name, age, spiritanimal) VALUES ($1, $2, $3, $4)",[squad_id, name, age, spiritanimal])
-  #redirect '/squads'
-  redirect "/squads/squad_id/squadmembers"
+  redirect "/squads"
 end
 
 
@@ -149,8 +147,6 @@ end
 put '/squads/:squad_id' do
   # not getting the ID from the calling page params[:squad_id] is always 0
   id = params[:squad_id].to_i
-  name = params[:name]  
-  mascot = params[:mascot]
   @conn.exec("UPDATE squads SET name = $1, mascot = $2 WHERE id = $3", [params[:name], params[:mascot], id])
   redirect '/squads'
 end

@@ -5,10 +5,11 @@
   <title>showsquad.erb</title>
 </head>
 <body>
-  
-<h2>Team: <%= @squad['name'] %> Mascot: <%= @squad['mascot'] %> <%= @squad['id'] %></h2>
 
-<form action="/squads/<%= @squad['id'] %>/squadmembers" method="post">
+<%= @squad["id"] %>
+<h2>Team: <%= @squad['name'] %> Mascot: <%= @squad['mascot'] %> <%= @squad['squad_id'] %></h2>
+
+<form action='/squads/<%= @squad["id"] %>/students' method="get">
   <input type="submit" value="show students">
 </form>
 

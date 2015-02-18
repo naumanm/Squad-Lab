@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Squadmembers</title>
+</head>
+<body>
+
+  <h4><%= @id %></h4>
+  <h4><%= @squadmembers %></h4>
+  <h4><%= @squad_name %></h4>
+
+/squads/:squad_id/students
+
+  <% @squadmembers.each do |student| %>
+    <a href="/squads/<%= student['squadid'] %>/students/<%= student['id'] %>/edit ">
+      <h4><%= student['name'] %> <%= student['age'] %> <%= student['spiritanimal'] %></h4>
+    </a>
+  <% end %>  
+
+
+</body>
+</html>
